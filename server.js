@@ -42,7 +42,7 @@ app.get("/api/1", (req, res) => {
 function discountRate() {}
 
 //* Server port details
-const PORT = process.env.PORT || 4000; // Default port to 4000 if not set in .env
+const PORT = 4000; // Default port to 4000 if not set in .env
 app
   .listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
