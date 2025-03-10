@@ -31,7 +31,21 @@ app.get("/api/2", (req, res) => {
 
 //TODO William's API
 
-function carValue() {}
+function carValue({ model, year }) {
+  let modelValue = 0;
+  const letterRegex = new RegExp("[a-z]");
+  for (let i = 0; i < model.length; i++) {
+    const letter = model[i].toLowerCase();
+    if (letter.match(letterRegex)) {
+      const letterValue = letter.charCodeAt(0) - 97 + 1;
+      modelValue += letterValue;
+    }
+  }
+
+  modelValue = modelValue * 100 + year;
+
+  return { car_value: modelValue };
+}
 
 app.get("/api/1", (req, res) => {
   res.send("The backend is running!");
