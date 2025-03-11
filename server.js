@@ -1,12 +1,20 @@
 //* Module imports
 const express = require("express");
 const cors = require("cors");
+const RiskAPI = require("./riskRatingAPI"); // Import the RiskAPI module (ensure it's correctly exported)
+const PORT = 4000;
 
-//* Enable Express
+//* Enable Express (Remove if RiskAPI is the main app)
 const app = express();
 
 //* Middleware
-app.use(cors("http://localhost:5173")); // Adjust CORS for your frontend URL
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Adjust to match your frontend URL
+    methods: ["GET", "POST"], // Allow only needed HTTP methods
+    credentials: true,
+  })
+);
 
 //* Test endpoint
 app.get("/", (req, res) => {
@@ -15,42 +23,36 @@ app.get("/", (req, res) => {
 
 //TODO Dean's API
 
-function quote() {}
+function quote() {
+  // Placeholder function for Dean's feature
+}
 
 app.get("/api/3", (req, res) => {
-  res.send("The backend is running!");
+  res.send("Dean's API is running!");
 });
 
 //TODO Mc's API
 
-function riskRating() {}
-
-app.get("/api/2", (req, res) => {
-  res.send("The backend is running!");
+// Middleware and endpoints for Mc's API
+RiskAPI.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 //TODO William's API
 
-function carValue() {}
+function carValue() {
+  // Placeholder function for William's feature
+}
 
 app.get("/api/1", (req, res) => {
-  res.send("The backend is running!");
+  res.send("William's API is running!");
 });
 
 //TODO Extra API
 
-function discountRate() {}
-
-//* Server port details
-const PORT = 4000; // Default port to 4000 if not set in .env
-app
-  .listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-  })
-  .on("error", (err) => {
-    console.error("Server Error: ", err);
-  });
+function discountRate() {
+  // Placeholder function for additional feature
+}
 
 //* Export Functions for Testing
-
-module.exports = { carValue, riskRating, quote, discountRate };
+module.exports = { carValue, quote, discountRate };
