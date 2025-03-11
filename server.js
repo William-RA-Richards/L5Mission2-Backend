@@ -78,7 +78,9 @@ function carValue({ model, year }) {
 }
 
 app.get("/api/1", (req, res) => {
-  res.send("The backend is running!");
+  const query = { model: req.query?.model, year: parseInt(req.query?.year) };
+  const data = carValue(query);
+  data?.error_message ? res.status(400).send(data) : res.status(200).send(data);
 });
 
 //TODO Extra API
