@@ -163,24 +163,48 @@ describe("carValue function error handling tests", () => {
     });
   });
 
-  //* No Year Input Tests
+  //* No Year Input Test
   test("No Year check.", () => {
     expect(carValue({ model: "Civic" })).toEqual({
       error_message: "No Year Input Detected",
     });
   });
+
+  //* No Model Input Test
   test("No Model check.", () => {
     expect(carValue({ year: 1989 })).toEqual({
       error_message: "No Model Input Detected",
     });
   });
+
+  //* Type Error Year Tests
   test("Wrong Data Type Year check.", () => {
     expect(carValue({ model: "Civic", year: "Twenty Twenty" })).toEqual({
       error_message: "Invalid Data Type Input For Year",
     });
+    expect(carValue({ model: "Sedan", year: NaN })).toEqual({
+      error_message: "Invalid Data Type Input For Year",
+    });
+    expect(carValue({ model: "SUV", year: "2014" })).toEqual({
+      error_message: "Invalid Data Type Input For Year",
+    });
+    expect(carValue({ model: "Hatchback", year: true })).toEqual({
+      error_message: "Invalid Data Type Input For Year",
+    });
+    expect(carValue({ model: "Wagon", year: null })).toEqual({
+      error_message: "Invalid Data Type Input For Year",
+    });
   });
+
+  //* Type Error Model Tests
   test("Wrong Data Type Model check.", () => {
     expect(carValue({ model: 19, year: 1994 })).toEqual({
+      error_message: "Invalid Data Type Input For Model",
+    });
+    expect(carValue({ model: null, year: 1994 })).toEqual({
+      error_message: "Invalid Data Type Input For Model",
+    });
+    expect(carValue({ model: true, year: 1994 })).toEqual({
       error_message: "Invalid Data Type Input For Model",
     });
   });

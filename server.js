@@ -40,7 +40,7 @@ function carValue({ model, year }) {
       throw "No Year Input Detected";
     } else if (model === undefined) {
       throw "No Model Input Detected";
-    } else if (typeof year != typeof 9) {
+    } else if (typeof year != typeof 9 || isNaN(year)) {
       throw "Invalid Data Type Input For Year";
     } else if (typeof model != typeof "9") {
       throw "Invalid Data Type Input For Model";
@@ -86,14 +86,14 @@ app.get("/api/1", (req, res) => {
 function discountRate() {}
 
 //* Server port details
-// const PORT = 4000; // Default port to 4000 if not set in .env
-// app
-//   .listen(PORT, () => {
-//     console.log(`Server is running at http://localhost:${PORT}`);
-//   })
-//   .on("error", (err) => {
-//     console.error("Server Error: ", err);
-//   });
+const PORT = 4000; // Default port to 4000 if not set in .env
+app
+  .listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+  })
+  .on("error", (err) => {
+    console.error("Server Error: ", err);
+  });
 
 //* Export Functions for Testing
 
