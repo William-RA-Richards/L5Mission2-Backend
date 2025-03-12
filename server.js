@@ -4,6 +4,7 @@ const cors = require("cors");
 const RiskAPI = require("./riskRatingAPI"); // Import the RiskAPI module (ensure it's correctly exported)
 const { carValueAPI } = require("./carValueAPI");
 const PORT = 4000;
+const PORT2 = 4001;
 
 //* Enable Express (Remove if RiskAPI is the main app)
 const app = express();
@@ -35,8 +36,8 @@ app.get("/api/3", (req, res) => {
 //TODO Mc's API
 
 // Middleware and endpoints for Mc's API
-RiskAPI.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+RiskAPI.listen(PORT2, () => {
+  console.log(`Server is running on http://localhost:${PORT2}`);
 });
 
 //TODO William's API
@@ -51,4 +52,4 @@ function discountRate() {}
 
 //* Export Functions for Testing
 
-module.exports = { riskRating, quote, discountRate };
+module.exports = { quote, discountRate };
