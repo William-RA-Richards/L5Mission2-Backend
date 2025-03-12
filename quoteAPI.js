@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const quoteAPI = express();
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+quoteAPI.use(cors());
+quoteAPI.use(express.json());
 
 // function
 function calcQuote(carValue, riskRating) {
@@ -35,18 +35,20 @@ function calcQuote(carValue, riskRating) {
 }
 
 // API route to calculate quote
-app.post("/calculate-quote", (req, res) => {
+quoteAPI.post("/calculate-quote", (req, res) => {
       console.log("Request body:", req.body);
-      const { carValue, riskRating } = req.body;
+      let { carValue, riskRating } = req.body;
+      carValue = Number(carValue);
+      riskRating = Number(riskRating);
+      // const { carValue, riskRating } = req.body;
       if (carValue === undefined || riskRating === undefined) {
             console.error("Invalid input: carValue or riskRating is undefined");
             console.log("test2", carValue, riskRating);
             return res.status(400).json({ error: "Invalid input" });
       }
-      const parsedCarValue = Number(carValue);
-      const parsedRiskRating = Number(riskRating);
-      console.log("Parsed values:", { parsedCarValue, parsedRiskRating });
-      const data = calcQuote(parsedCarValue, parsedRiskRating);
+
+      // console.log("Parsed values:", { parsedCarValue, parsedRiskRating });
+      const data = calcQuote(carValue, riskRating);
       if (data?.error) {
             console.error("Validation error:", data.error);
             console.log(carValue, riskRating);
@@ -55,15 +57,9 @@ app.post("/calculate-quote", (req, res) => {
       res.status(200).json(data);
 });
 
-app.use((err, req, res, next) => {
+quoteAPI.use((err, req, res, next) => {
       console.error("Server Error:", err.message);
       res.status(500).json({ error: "An internal server error occurred." });
 });
 
-// Server
-const PORT = 5000;
-app.listen(PORT, () => {
-      console.log(`Quote API is running on http://localhost:${PORT}`);
-});
-
-module.exports = { calcQuote };
+module.exports = { calcQuote, quoteAPI };

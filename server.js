@@ -2,7 +2,9 @@
 const express = require("express");
 const cors = require("cors");
 const { carValueAPI } = require("./carValueAPI");
+const { quoteAPI } = require("./quoteAPI");
 const PORT = 4000;
+const PORT3 = 5000;
 
 //* Enable Express
 const app = express();
@@ -25,8 +27,8 @@ app.get("/", (req, res) => {
 
 function quote() {}
 
-app.get("/api/3", (req, res) => {
-      res.send("The backend is running!");
+quoteAPI.listen(PORT3, () => {
+      console.log(`Server is running at http://localhost:${PORT3}`);
 });
 
 //TODO Mc's API
