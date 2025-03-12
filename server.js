@@ -1,12 +1,20 @@
 //* Module imports
 const express = require("express");
 const cors = require("cors");
+const { carValueAPI } = require("./carValueAPI");
+const PORT = 4000;
 
 //* Enable Express
 const app = express();
 
 //* Middleware
-app.use(cors("http://localhost:5173")); // Adjust CORS for your frontend URL
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Adjust to match your frontend URL
+    methods: ["GET", "POST"], // Allow only needed HTTP methods
+    credentials: true,
+  })
+);
 
 //* Test endpoint
 app.get("/", (req, res) => {
@@ -31,26 +39,14 @@ app.get("/api/2", (req, res) => {
 
 //TODO William's API
 
-function carValue() {}
-
-app.get("/api/1", (req, res) => {
-  res.send("The backend is running!");
+carValueAPI.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
 
 //TODO Extra API
 
 function discountRate() {}
 
-//* Server port details
-const PORT = 4000; // Default port to 4000 if not set in .env
-app
-  .listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-  })
-  .on("error", (err) => {
-    console.error("Server Error: ", err);
-  });
-
 //* Export Functions for Testing
 
-module.exports = { carValue, riskRating, quote, discountRate };
+module.exports = { riskRating, quote, discountRate };
