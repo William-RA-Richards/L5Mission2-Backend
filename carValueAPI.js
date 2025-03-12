@@ -52,9 +52,9 @@ function carValue({ model, year }) {
   }
 }
 
-carValueAPI.get("/calculate-car-value", (req, res) => {
-  const query = { model: req.query?.model, year: parseInt(req.query?.year) };
-  const data = carValue(query);
+carValueAPI.post("/calculate-car-value", (req, res) => {
+  const { carModel, carYear } = req.body;
+  const data = carValue({ model: carModel, year: parseInt(carYear) });
   data?.error_message ? res.status(400).send(data) : res.status(200).send(data);
 });
 
