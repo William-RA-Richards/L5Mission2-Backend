@@ -1,4 +1,4 @@
-const { carValue } = require("../server.js");
+const { carValue } = require("../carValueAPI.js");
 
 describe("carValue function normal tests", () => {
   //*Normal Tests
