@@ -78,4 +78,4 @@ Dean Barrow - deanb@missionreadyhq.com
 
 Mc Genesis De Vera - mcgenesisd@missionreadyhq.com
 
-Project Link: [https://github.com/TheKoalaBear/Mission-02](https://github.com/TheKoalaBear/Mission-02)
+Project Link: [https://github.com/William-RA-Richards/L5Mission2-Backend](https://github.com/William-RA-Richards/L5Mission2-Backend)
