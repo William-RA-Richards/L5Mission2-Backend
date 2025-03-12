@@ -1,10 +1,10 @@
-const calcQuote = require("../quote.js");
+const { calcQuote } = require("../quoteAPI.js");
 
 test("Return premiums if car value + risk rating is correct", () => {
       const result = calcQuote(6441, 3);
       expect(result).toEqual({
-            monthly_premium: 27.57,
-            yearly_premium: 330.84,
+            monthly_premium: 16.1,
+            yearly_premium: 193.23,
       });
 });
 

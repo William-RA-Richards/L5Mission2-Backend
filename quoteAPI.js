@@ -9,12 +9,14 @@ app.use(express.json());
 // function
 function calcQuote(carValue, riskRating) {
       // Validate carValue
+      console.log("Validating carValue:", carValue);
       if (carValue === undefined || carValue === null || typeof carValue === "boolean")
             return { error: "Invalid car value input" };
       if (typeof carValue !== "number" || isNaN(carValue)) return { error: "Invalid car value input" };
       if (carValue <= 0) return { error: "Invalid car value input" };
 
       // Validate riskRating
+      console.log("Validating riskRating:", riskRating);
       if (riskRating === undefined || riskRating === null || typeof riskRating === "boolean")
             return { error: "Invalid risk rating input" };
       if (typeof riskRating !== "number" || isNaN(riskRating)) return { error: "Invalid risk rating input" };
@@ -22,9 +24,8 @@ function calcQuote(carValue, riskRating) {
       if (riskRating < 1 || riskRating > 5) return { error: "Invalid risk rating input" };
 
       // Premium calculation logic
-      const baseRate = 0.004;
-      const riskMultiplier = 1 + (riskRating - 1) * 0.1;
-      const yearlyPremium = carValue * baseRate * riskMultiplier;
+      const baseRate = 100;
+      const yearlyPremium = (carValue * riskRating) / baseRate;
       const monthlyPremium = yearlyPremium / 12;
 
       return {
@@ -35,10 +36,23 @@ function calcQuote(carValue, riskRating) {
 
 // API route to calculate quote
 app.post("/calculate-quote", (req, res) => {
-      console.log(req.body);
+      console.log("Request body:", req.body);
       const { carValue, riskRating } = req.body;
-      const data = calcQuote(carValue, riskRating);
-      data?.error ? res.status(400).json(data) : res.status(200).json(data);
+      if (carValue === undefined || riskRating === undefined) {
+            console.error("Invalid input: carValue or riskRating is undefined");
+            console.log("test2", carValue, riskRating);
+            return res.status(400).json({ error: "Invalid input" });
+      }
+      const parsedCarValue = Number(carValue);
+      const parsedRiskRating = Number(riskRating);
+      console.log("Parsed values:", { parsedCarValue, parsedRiskRating });
+      const data = calcQuote(parsedCarValue, parsedRiskRating);
+      if (data?.error) {
+            console.error("Validation error:", data.error);
+            console.log(carValue, riskRating);
+            return res.status(400).json(data);
+      }
+      res.status(200).json(data);
 });
 
 app.use((err, req, res, next) => {
