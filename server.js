@@ -1,12 +1,14 @@
 //* Module imports
 const express = require("express");
 const cors = require("cors");
+const RiskAPI = require("./riskRatingAPI"); // Import the RiskAPI module (ensure it's correctly exported)
 const { carValueAPI } = require("./carValueAPI");
 const { quoteAPI } = require("./quoteAPI");
 const PORT = 4000;
 const PORT3 = 5000;
+const PORT2 = 4001;
 
-//* Enable Express
+//* Enable Express (Remove if RiskAPI is the main app)
 const app = express();
 
 //* Middleware
@@ -25,7 +27,9 @@ app.get("/", (req, res) => {
 
 //TODO Dean's API
 
-function quote() {}
+function quote() {
+  // Placeholder function for Dean's feature
+}
 
 quoteAPI.listen(PORT3, () => {
       console.log(`Server is running at http://localhost:${PORT3}`);
@@ -33,10 +37,10 @@ quoteAPI.listen(PORT3, () => {
 
 //TODO Mc's API
 
-function riskRating() {}
+// Middleware and endpoints for Mc's API
+RiskAPI.listen(PORT2, () => {
+  console.log(`Server is running on http://localhost:${PORT2}`);
 
-app.get("/api/2", (req, res) => {
-      res.send("The backend is running!");
 });
 
 //TODO William's API
@@ -51,4 +55,4 @@ function discountRate() {}
 
 //* Export Functions for Testing
 
-module.exports = { riskRating, quote, discountRate };
+module.exports = { quote, discountRate };
