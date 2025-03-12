@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const RiskAPI = require("./riskRatingAPI"); // Import the RiskAPI module (ensure it's correctly exported)
+const { carValueAPI } = require("./carValueAPI");
 const PORT = 4000;
 
 //* Enable Express (Remove if RiskAPI is the main app)
@@ -40,19 +41,14 @@ RiskAPI.listen(PORT, () => {
 
 //TODO William's API
 
-function carValue() {
-  // Placeholder function for William's feature
-}
-
-app.get("/api/1", (req, res) => {
-  res.send("William's API is running!");
+carValueAPI.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
 
 //TODO Extra API
 
-function discountRate() {
-  // Placeholder function for additional feature
-}
+function discountRate() {}
 
 //* Export Functions for Testing
-module.exports = { carValue, quote, discountRate };
+
+module.exports = { riskRating, quote, discountRate };
