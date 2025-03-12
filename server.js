@@ -3,8 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const RiskAPI = require("./riskRatingAPI"); // Import the RiskAPI module (ensure it's correctly exported)
 const { carValueAPI } = require("./carValueAPI");
+const { discountRateAPI } = require("./discountRateAPI");
 const PORT = 4000;
 const PORT2 = 4001;
+const PORT4 = 4003;
 
 //* Enable Express (Remove if RiskAPI is the main app)
 const app = express();
@@ -48,8 +50,10 @@ carValueAPI.listen(PORT, () => {
 
 //TODO Extra API
 
-function discountRate() {}
+discountRateAPI.listen(PORT4, () => {
+  console.log(`Server is running at http://localhost:${PORT4}`);
+});
 
 //* Export Functions for Testing
 
-module.exports = { quote, discountRate };
+module.exports = { quote };
